@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dictionarydemo.Models.Definitions;
 import com.example.dictionarydemo.R;
-import com.example.dictionarydemo.ViewHolder.DefinitionsViewHolder;
+import com.example.dictionarydemo.ViewHolder.DefinitionViewHolder;
 
 import java.util.List;
 
-public class DefinitionAdapter extends RecyclerView.Adapter<DefinitionsViewHolder> {
+public class DefinitionAdapter extends RecyclerView.Adapter<DefinitionViewHolder> {
     private Context context;
     private List<Definitions> definitionsList;
 
@@ -24,21 +24,22 @@ public class DefinitionAdapter extends RecyclerView.Adapter<DefinitionsViewHolde
 
     @NonNull
     @Override
-    public DefinitionsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DefinitionsViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.definitions_list_items, parent, false));
+    public DefinitionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new DefinitionViewHolder(LayoutInflater.from(context).inflate(R.layout.definitions_list_items, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DefinitionsViewHolder holder, int position) {
-        holder.textView_definition.setText("Definition: " + definitionsList.get(position).getDefinition());
+    public void onBindViewHolder(@NonNull DefinitionViewHolder holder, int position) {
+        holder.textView_definitions.setText("Definition: " + definitionsList.get(position).getDefinition());
         holder.textView_example.setText("Example: " + definitionsList.get(position).getExample());
         StringBuilder synonyms = new StringBuilder();
         StringBuilder antonyms = new StringBuilder();
 
+ for (int i=0 ; i<definitionsList.get(position).getSynonyms().size(); i++)
+ {      synonyms.append(definitionsList.get(position).getSynonyms());
+ }
         synonyms.append(definitionsList.get(position).getSynonyms());
         antonyms.append(definitionsList.get(position).getAntonyms());
-
         holder.textView_synonyms.setText(synonyms);
         holder.textView_antonyms.setText(antonyms);
 

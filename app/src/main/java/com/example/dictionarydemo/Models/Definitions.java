@@ -3,10 +3,18 @@ package com.example.dictionarydemo.Models;
 import java.util.List;
 
 public class Definitions {
-
     String definition = "";
     String example = "";
     List<String> synonyms = null;
+
+    public List<String> getAntonyms() {
+        return antonyms;
+    }
+
+    public void setAntonyms(List<String> antonyms) {
+        this.antonyms = antonyms;
+    }
+
     List<String> antonyms = null;
 
     public String getDefinition() {
@@ -31,13 +39,5 @@ public class Definitions {
 
     public void setSynonyms(List<String> synonyms) {
         this.synonyms = synonyms;
-    }
-
-    public List<String> getAntonyms() {
-        return antonyms;
-    }
-
-    public void setAntonyms(List<String> antonyms) {
-        this.antonyms = antonyms;
     }
 }

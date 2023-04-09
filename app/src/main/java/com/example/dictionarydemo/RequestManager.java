@@ -12,11 +12,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public class RequestManager {
-
     Context context;
 
     Retrofit retrofit = new Retrofit.Builder()
@@ -30,37 +32,36 @@ public class RequestManager {
 
     public void getWordMeaning(OnFetchDataListener listener, String word){
         CallDictionary callDictionary = retrofit.create(CallDictionary.class);
-        Call<List<APIResponse>> call = callDictionary.callMeanings(word);
+        Call<List<APIResponse>> call =callDictionary.callMeanings(word);
 
         try{
             call.enqueue(new Callback<List<APIResponse>>() {
                 @Override
                 public void onResponse(Call<List<APIResponse>> call, Response<List<APIResponse>> response) {
                     if (!response.isSuccessful()){
-                        Toast.makeText(context,"Error!!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error!!", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    listener.onFetchData(response.body().get(0),
-                            response.message());
+                    listener.onFetchData(response.body().get(0), response.message());
                 }
 
                 @Override
                 public void onFailure(Call<List<APIResponse>> call, Throwable t) {
-                    listener.onError("Request Failed");
+                    listener.onError("Request Failed!");
                 }
+
             });
-        }
-        catch (Exception e){
+        }catch (Exception e){
             e.printStackTrace();
-            Toast.makeText(context,"An Error Occurred!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Error Occurred!!", Toast.LENGTH_SHORT).show();
         }
+
     }
 
-
-    public interface CallDictionary{
+    public interface CallDictionary {
         @GET("entries/en/{word}")
         Call<List<APIResponse>> callMeanings(
-                @Part("word") String word
+                @Path("word") String word
         );
     }
 }

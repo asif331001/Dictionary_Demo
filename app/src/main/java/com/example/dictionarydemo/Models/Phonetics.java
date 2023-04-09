@@ -1,7 +1,6 @@
 package com.example.dictionarydemo.Models;
 
 public class Phonetics {
-
     String text = "";
     String audio = "";
 
